@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M4DI~UciH4 | Cyber Security & Trading Developer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💀</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ============================================
+           ROOT VARIABLES & RESET
+        ============================================ */
+        :root {
+            --primary: #00ff41;
+            --primary-dark: #00cc33;
+            --secondary: #0d0d0d;
+            --accent: #ff0040;
+            --accent2: #00d4ff;
+            --bg-dark: #000000;
+            --bg-card: #0a0a0a;
+            --bg-card-hover: #111111;
+            --text: #ffffff;
+            --text-muted: #888888;
+            --border: #1a1a1a;
+            --glow: 0 0 20px rgba(0, 255, 65, 0.5);
+            --glow-strong: 0 0 40px rgba(0, 255, 65, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        *::selection {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* ============================================
+           MATRIX RAIN BACKGROUND
+        ============================================ */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        /* ============================================
+           CUSTOM SCROLLBAR
+        ============================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ============================================
+           PRELOADER
+        ============================================ */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-content {
+            text-align: center;
+        }
+
+        .preloader-text {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .preloader-bar {
+            width: 300px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .preloader-progress {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            animation: loading 2s ease-in-out forwards;
+            box-shadow: var(--glow);
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* ============================================
+           CURSOR EFFECTS
+        ============================================ */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease, opacity 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 5px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ============================================
+           NAVIGATION
+        ============================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+            text-shadow: var(--glow);
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::before {
+            content: '>';
+            color: var(--primary);
+            margin-right: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::before {
+            opacity: 1;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        /* ============================================
+           HERO SECTION
+        ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://static.vecteezy.com/system/resources/thumbnails/055/692/964/small/green-data-falling-matrix-wallpaper-background-banner-template-in-binary-numbers-with-geometric-cover-lines-vector.jpg') center/cover no-repeat;
+            opacity: 0.3;
+            filter: blur(2px);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 1000px;
+        }
+
+        .glitch {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--text);
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--accent);
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--accent2);
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim2 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(62px, 9999px, 42px, 0); }
+            40% { clip: rect(16px, 9999px, 78px, 0); }
+            60% { clip: rect(89px, 9999px, 13px, 0); }
+            80% { clip: rect(48px, 9999px, 71px, 0); }
+            100% { clip: rect(23px, 9999px, 55px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 99px, 0); }
+            20% { clip: rect(12px, 9999px, 47px, 0); }
+            40% { clip: rect(88px, 9999px, 26px, 0); }
+            60% { clip: rect(35px, 9999px, 74px, 0); }
+            80% { clip: rect(91px, 9999px, 18px, 0); }
+            100% { clip: rect(52px, 9999px, 83px, 0); }
+        }
+
+        .hero-subtitle {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin: 20px 0 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+
+        .typing-text {
+            display: inline;
+            border-right: 3px solid var(--primary);
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { border-color: var(--primary); }
+            50% { border-color: transparent; }
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.8s;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.1s;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--bg-dark);
+            box-shadow: var(--glow);
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn-secondary {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-secondary::before {
+            background: var(--accent);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .scroll-indicator i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ============================================
+           SECTIONS COMMON STYLES
+        ============================================ */
+        section {
+            padding: 100px 50px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::before {
+            content: '//';
+            color: var(--primary);
+            margin-right: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        .section-subtitle {
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           ABOUT SECTION
+        ============================================ */
+        .about {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #050505 100%);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .terminal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            background: #1a1a1a;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-btn.red { background: #ff5f56; }
+        .terminal-btn.yellow { background: #ffbd2e; }
+        .terminal-btn.green { background: #27c93f; }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .terminal-body {
+            padding: 25px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .terminal-line {
+            margin-bottom: 15px;
+        }
+
+        .terminal-prompt {
+            color: var(--primary);
+        }
+
+        .terminal-command {
+            color: var(--accent2);
+        }
+
+        .terminal-output {
+            color: var(--text-muted);
+            padding-left: 20px;
+        }
+
+        .terminal-output strong {
+            color: var(--text);
+        }
+
+        /* ============================================
+           SKILLS SECTION
+        ============================================ */
+        .skills {
+            background: #050505;
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills-category {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .category-title i {
+            font-size: 1.5rem;
+        }
+
+        .category-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .skill-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .skill-badge:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .skill-badge img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .skill-badge span {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .skill-badge .level {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            background: var(--primary);
+            color: var(--bg-dark);
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .skill-badge .level.advanced {
+            background: var(--accent2);
+        }
+
+        .skill-badge .level.intermediate {
+            background: #ffa500;
+        }
+
+        /* ============================================
+           STATS SECTION
+        ============================================ */
+        .stats {
+            background: linear-gradient(180deg, #050505 0%, var(--bg-dark) 100%);
+            padding: 80px 50px;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent2));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           PROJECTS SECTION
+        ============================================ */
+        .projects {
+            background: var(--bg-dark);
+        }
+
+        .projects-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-category {
+            margin-bottom: 60px;
+        }
+
+        .project-category-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .project-category-title i {
+            color: var(--primary);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.2);
+        }
+
+        .project-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .project-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .project-body {
+            padding: 25px;
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 4px;
+            color: var(--primary);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-link {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text);
+            background: var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .project-link:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+        }
+
+        /* ============================================
+           GITHUB STATS SECTION
+        ============================================ */
+        .github-stats {
+            background: #050505;
+            padding: 80px 50px;
+        }
+
+        .github-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .github-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .github-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .github-card img {
+            border-radius: 10px;
+        }
+
+        /* ============================================
+           CODE BLOCK SECTION
+        ============================================ */
+        .code-section {
+            background: var(--bg-dark);
+            padding: 80px 50px;
+        }
+
+        .code-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .code-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #1a1a1a;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background: #ff5f56; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #27c93f; }
+
+        .code-filename {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .code-body {
+            padding: 25px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .code-body .keyword {
+            color: #ff79c6;
+        }
+
+        .code-body .string {
+            color: #f1fa8c;
+        }
+
+        .code-body .property {
+            color: #8be9fd;
+        }
+
+        .code-body .value {
+            color: #50fa7b;
+        }
+
+        .code-body .bracket {
+            color: #f8f8f2;
+        }
+
+        .code-body .comment {
+            color: #6272a4;
+        }
+
+        /* ============================================
+           CONNECT SECTION
+        ============================================ */
+        .connect {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #050505 100%);
+        }
+
+        .connect-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .connect-description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link i {
+            font-size: 1.3rem;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .social-link.email:hover { border-color: #ea4335; box-shadow: 0 0 20px rgba(234, 67, 53, 0.5); }
+        .social-link.telegram:hover { border-color: #2ca5e0; box-shadow: 0 0 20px rgba(44, 165, 224, 0.5); }
+        .social-link.github:hover { border-color: #fff; box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+        .social-link.linkedin:hover { border-color: #0077b5; box-shadow: 0 0 20px rgba(0, 119, 181, 0.5); }
+
+        .visitor-badge {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .visitor-badge img {
+            border-radius: 5px;
+        }
+
+        /* ============================================
+           FOOTER
+        ============================================ */
+        footer {
+            background: #050505;
+            padding: 50px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-shadow: var(--glow);
+        }
+
+        .footer-text {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .footer-disclaimer {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            padding: 20px;
+            background: rgba(255, 0, 64, 0.1);
+            border: 1px solid rgba(255, 0, 64, 0.3);
+            border-radius: 10px;
+        }
+
+        .footer-disclaimer i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+
+        /* ============================================
+           FLOATING ELEMENTS
+        ============================================ */
+        .floating-icons {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .floating-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .floating-icon:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: var(--glow);
+            transform: scale(1.1);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+        ============================================ */
+        @media (max-width: 1024px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .floating-icons {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 25px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--bg-card);
+                flex-direction: column;
+                padding: 100px 40px;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 100px 25px;
+            }
+
+            .glitch {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 60px 25px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-link {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .glitch {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+
+            .terminal-body {
+                font-size: 0.75rem;
+            }
+
+            .code-body {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-text">
+                <span id="loading-text">Initializing...</span>
+            </div>
+            <div class="preloader-bar">
+                <div class="preloader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MATRIX BACKGROUND -->
+    <canvas id="matrix-bg"></canvas>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="#" class="logo">RIZKY<span>.</span>EVORY</a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#connect">Connect</a></li>
+        </ul>
+        <div class="nav-toggle" id="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- FLOATING SOCIAL ICONS -->
+    <div class="floating-icons">
+        <a href="https://github.com/RizkyEvory" class="floating-icon" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://t.me/madiganzz" class="floating-icon" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="mailto:emailkamu@example.com" class="floating-icon"><i class="fas fa-envelope"></i></a>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="glitch" data-text="M4DI~UciH4">M4DI~UciH4</h1>
+            <p class="hero-subtitle">
+                <span class="typing-text" id="typing"></span>
+            </p>
+            <p class="hero-description">
+                Passionate developer specializing in advanced cybersecurity tools and high-performance trading algorithms. 
+                Building robust solutions for penetration testing, vulnerability exploitation, and automated trading.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn">
+                    <i class="fas fa-code"></i> View Projects
+                </a>
+                <a href="#connect" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i> Contact Me
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="about">
+        <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">whoami</p>
+        </div>
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://media.giphy.com/media/M9gbBd9nbDrOTu1Mqx/giphy.gif" alt="Developer">
+            </div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-btn red"></div>
+                    <div class="terminal-btn yellow"></div>
+                    <div class="terminal-btn green"></div>
+                    <div class="terminal-title">rizky@kali:~</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">┌──(rizky㉿kali)-[~]</span><br>
+                        <span class="terminal-prompt">└─$</span> <span class="terminal-command">cat about.txt</span>
+                    </div>
+                    <div class="terminal-output">
+                        <strong>Name:</strong> M4DI~UciH4<br>
+                        <strong>Role:</strong> Cyber Security Developer<br>
+                        <strong>Focus:</strong> PenTesting Tools & Trading Algorithms<br>
+                        <strong>Location:</strong> Indonesia 🇮🇩
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">┌──(rizky㉿kali)-[~]</span><br>
+                        <span class="terminal-prompt">└─$</span> <span class="terminal-command">cat mission.txt</span>
+                    </div>
+                    <div class="terminal-output">
+                        "Secure the breach. Maximize the edge. Master the market." 🛡️📈
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">┌──(rizky㉿kali)-[~]</span><br>
+                        <span class="terminal-prompt">└─$</span> <span class="terminal-command">_</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="skills" id="skills">
+        <div class="section-header">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <p class="section-subtitle">cat skills.txt</p>
+        </div>
+        <div class="skills-container">
+            <!-- Programming -->
+            <div class="skills-category">
+                <h3 class="category-title"><i class="fas fa-code"></i> Programming & Scripting</h3>
+                <div class="skills-grid">
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+                        <span>Python</span>
+                        <span class="level">Expert</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP">
+                        <span>PHP</span>
+                        <span class="level">Expert</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+                        <span>JavaScript</span>
+                        <span class="level advanced">Advanced</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript">
+                        <span>TypeScript</span>
+                        <span class="level advanced">Advanced</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" alt="Bash">
+                        <span>Bash</span>
+                        <span class="level advanced">Advanced</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" alt="Go">
+                        <span>Go</span>
+                        <span class="level intermediate">Intermediate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cybersecurity -->
+            <div class="skills-category">
+                <h3 class="category-title"><i class="fas fa-shield-alt"></i> Cybersecurity & Penetration Testing</h3>
+                <div class="skills-grid">
+                    <div class="skill-badge">
+                        <i class="fab fa-linux" style="font-size: 24px; color: #fff;"></i>
+                        <span>Kali Linux</span>
+                        <span class="level">Expert</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-bug" style="font-size: 24px; color: #ff0000;"></i>
+                        <span>PenTesting</span>
+                        <span class="level">Expert</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-spider" style="font-size: 24px; color: #00ff00;"></i>
+                        <span>Exploits</span>
+                        <span class="level advanced">Advanced</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-globe" style="font-size: 24px; color: #ff6b6b;"></i>
+                        <span>Web Security</span>
+                        <span class="level">Expert</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-search" style="font-size: 24px; color: #8b0000;"></i>
+                        <span>Reverse Engineering</span>
+                        <span class="level intermediate">Intermediate</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-network-wired" style="font-size: 24px; color: #00d4ff;"></i>
+                        <span>Network Security</span>
+                        <span class="level advanced">Advanced</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trading -->
+            <div class="skills-category">
+                <h3 class="category-title"><i class="fas fa-chart-line"></i> Trading & Financial Technologies</h3>
+                <div class="skills-grid">
+                    <div class="skill-badge">
+                        <i class="fas fa-robot" style="font-size: 24px; color: #00a368;"></i>
+                        <span>MQL5</span>
+                        <span class="level">Expert</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-cogs" style="font-size: 24px; color: #00a368;"></i>
+                        <span>Algorithmic Trading</span>
+                        <span class="level">Expert</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-chart-bar" style="font-size: 24px; color: #ffd700;"></i>
+                        <span>Technical Analysis</span>
+                        <span class="level advanced">Advanced</span>
+                    </div>
+                    <div class="skill-badge">
+                        <i class="fas fa-balance-scale" style="font-size: 24px; color: #228b22;"></i>
+                        <span>Risk Management</span>
+                        <span class="level">Expert</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Development -->
+            <div class="skills-category">
+                <h3 class="category-title"><i class="fas fa-laptop-code"></i> Web Development</h3>
+                <div class="skills-grid">
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+                        <span>HTML5</span>
+                        <span class="level">Expert</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+                        <span>CSS3</span>
+                        <span class="level">Expert</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+                        <span>React</span>
+                        <span class="level advanced">Advanced</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+                        <span>Node.js</span>
+                        <span class="level advanced">Advanced</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+                        <span>MongoDB</span>
+                        <span class="level advanced">Advanced</span>
+                    </div>
+                    <div class="skill-badge">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+                        <span>MySQL</span>
+                        <span class="level">Expert</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-code"></i></div>
+                <div class="stat-number" data-target="50">0</div>
+                <div class="stat-label">Projects Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-bug"></i></div>
+                <div class="stat-number" data-target="100">0</div>
+                <div class="stat-label">Bugs Found</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-robot"></i></div>
+                <div class="stat-number" data-target="15">0</div>
+                <div class="stat-label">Trading EAs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-coffee"></i></div>
+                <div class="stat-number" data-target="999">0</div>
+                <div class="stat-label">Cups of Coffee</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section class="projects" id="projects">
+        <div class="section-header">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">ls -la projects/</p>
+        </div>
+        <div class="projects-container">
+            <!-- Trading EAs -->
+            <div class="project-category">
+                <h3 class="project-category-title"><i class="fas fa-trophy"></i> Trading Algorithms (MQL5 Expert Advisors)</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">📈</div>
+                            <h4 class="project-title">Quantum Swing Matrix Pro Ultimate MT5</h4>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Multi-pair swing trading with advanced matrix algorithms for high-probability entries.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">MQL5</span>
+                                <span class="tech-tag">Algorithmic Trading</span>
+                                <span class="tech-tag">Matrix Logic</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-eye"></i> Preview</a>
+                                <a href="#" class="project-link"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🥇</div>
+                            <h4 class="project-title">Gold Matrix Pro EA MT5</h4>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Precision gold (XAUUSD) scalping EA with dynamic risk management and trend filtering.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">MQL5</span>
+                                <span class="tech-tag">Gold Trading</span>
+                                <span class="tech-tag">Scalping</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-eye"></i> Preview</a>
+                                <a href="#" class="project-link"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🏦</div>
+                            <h4 class="project-title">SMC-ICT Expert Advisor MT5</h4>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Institutional order flow detection using Smart Money Concepts (SMC) and ICT methodologies.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">MQL5</span>
+                                <span class="tech-tag">Order Flow</span>
+                                <span class="tech-tag">Market Structure</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-eye"></i> Preview</a>
+                                <a href="#" class="project-link"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">💥</div>
+                            <h4 class="project-title">Breakout EA MT5</h4>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Dynamic breakout strategy with adaptive lot sizing and multi-timeframe confirmation.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">MQL5</span>
+                                <span class="tech-tag">Breakout Trading</span>
+                                <span class="tech-tag">Multi-Timeframe</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-eye"></i> Preview</a>
+                                <a href="#" class="project-link"><i class="fas fa-download"></i> Download</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cybersecurity Tools -->
+            <div class="project-category">
+                <h3 class="project-category-title"><i class="fas fa-lock"></i> Cybersecurity & Penetration Testing Tools</h3>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🔓</div>
+                            <h4 class="project-title">Bypass Webshell 2025+</h4>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Advanced WAF & firewall bypass techniques for authorized penetration testing.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">PHP</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">WAF Bypass</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Source</a>
+                                <a href="#" class="project-link"><i class="fas fa-book"></i> Docs</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🔍</div>
+                            <h4 class="project-title">Backdoor Finder</h4>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Automated scanner for detecting hidden backdoors and malicious scripts.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Forensics</span>
+                                <span class="tech-tag">Malware Detection</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Source</a>
+                                <a href="#" class="project-link"><i class="fas fa-book"></i> Docs</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">📤</div>
+                            <h4 class="project-title">SSH/Plesk Shell Uploader</h4>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Tools for authorized testing of file upload vulnerabilities.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">PHP</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Shell Scripting</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Source</a>
+                                <a href="#" class="project-link"><i class="fas fa-book"></i> Docs</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🔧</div>
+                            <h4 class="project-title">Laravel Exploit Toolkit</h4>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Collection of exploits and scanners for Laravel apps (educational).</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">PHP</span>
+                                <span class="tech-tag">Laravel</span>
+                                <span class="tech-tag">Vulnerability Research</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fab fa-github"></i> Source</a>
+                                <a href="#" class="project-link"><i class="fas fa-book"></i> Docs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CODE BLOCK SECTION -->
+    <section class="code-section">
+        <div class="code-container">
+            <div class="section-header">
+                <h2 class="section-title">About Developer</h2>
+                <p class="section-subtitle">developer.json</p>
+            </div>
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <div class="code-dot red"></div>
+                        <div class="code-dot yellow"></div>
+                        <div class="code-dot green"></div>
+                    </div>
+                    <div class="code-filename">rizky_evory.js</div>
+                </div>
+                <div class="code-body">
+<span class="keyword">const</span> <span class="property">RizkyEvory</span> <span class="bracket">=</span> <span class="bracket">{</span>
+    <span class="property">pronouns</span>: <span class="string">"He"</span> <span class="bracket">|</span> <span class="string">"Him"</span>,
+    <span class="property">code</span>: <span class="bracket">[</span><span class="string">"Python"</span>, <span class="string">"PHP"</span>, <span class="string">"JavaScript"</span>, <span class="string">"MQL5"</span>, <span class="string">"Go"</span><span class="bracket">]</span>,
+    <span class="property">askMeAbout</span>: <span class="bracket">[</span>
+        <span class="string">"cyber security"</span>,
+        <span class="string">"penetration testing"</span>,
+        <span class="string">"trading algorithms"</span>,
+        <span class="string">"web development"</span>
+    <span class="bracket">]</span>,
+    <span class="property">technologies</span>: <span class="bracket">{</span>
+        <span class="property">security</span>: <span class="bracket">[</span><span class="string">"Kali"</span>, <span class="string">"Metasploit"</span>, <span class="string">"Burp Suite"</span>, <span class="string">"Wireshark"</span><span class="bracket">]</span>,
+        <span class="property">trading</span>: <span class="bracket">[</span><span class="string">"MT5"</span>, <span class="string">"Expert Advisors"</span>, <span class="string">"Custom Indicators"</span><span class="bracket">]</span>,
+        <span class="property">backend</span>: <span class="bracket">[</span><span class="string">"Node.js"</span>, <span class="string">"Express"</span>, <span class="string">"Laravel"</span><span class="bracket">]</span>,
+        <span class="property">databases</span>: <span class="bracket">[</span><span class="string">"MongoDB"</span>, <span class="string">"MySQL"</span>, <span class="string">"PostgreSQL"</span><span class="bracket">]</span>
+    <span class="bracket">}</span>,
+    <span class="property">currentFocus</span>: <span class="string">"Building Security Tools & Trading Algorithms"</span>,
+    <span class="property">funFact</span>: <span class="string">"I hack to protect, trade to profit"</span>
+<span class="bracket">}</span>;
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GITHUB STATS SECTION -->
+    <section class="github-stats">
+        <div class="section-header">
+            <h2 class="section-title">GitHub Stats</h2>
+            <p class="section-subtitle">git log --oneline</p>
+        </div>
+        <div class="github-container">
+            <div class="github-card">
+                <img src="https://github-readme-stats.vercel.app/api?username=AnonymousFoxx&show_icons=true&title_color=00ff41&icon_color=00ff41&text_color=ffffff&bg_color=0d1117&hide_border=true" alt="GitHub Stats">
+            </div>
+            <div class="github-card">
+                <img src="https://github-readme-streak-stats.herokuapp.com/?user=AnonymousFoxx&theme=chartreuse-dark&hide_border=true&background=0d1117&stroke=00ff41&ring=00ff41&fire=ff6600&currStreakLabel=00ff41" alt="GitHub Streak">
+            </div>
+            <div class="github-card">
+                <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=AnonymousFoxx&layout=compact&title_color=00ff41&text_color=ffffff&bg_color=0d1117&hide_border=true" alt="Top Languages">
+            </div>
+        </div>
+    </section>
+
+    <!-- CONNECT SECTION -->
+    <section class="connect" id="connect">
+        <div class="section-header">
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">establish_connection()</p>
+        </div>
+        <div class="connect-container">
+            <p class="connect-description">
+                <i class="fas fa-heart" style="color: var(--accent);"></i> I love connecting with different people! 
+                If you want to say hi, discuss a project, or collaborate on security research and trading algorithms, 
+                I'll be happy to meet you! 😊
+            </p>
+            <div class="social-links">
+                <a href="mailto:emailkamu@example.com" class="social-link email">
+                    <i class="fas fa-envelope" style="color: #ea4335;"></i>
+                    <span>Email</span>
+                </a>
+                <a href="https://t.me/rizkyevory" class="social-link telegram" target="_blank">
+                    <i class="fab fa-telegram" style="color: #2ca5e0;"></i>
+                    <span>Telegram</span>
+                </a>
+                <a href="https://github.com/RizkyEvory" class="social-link github" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="#" class="social-link linkedin" target="_blank">
+                    <i class="fab fa-linkedin" style="color: #0077b5;"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+            <div class="visitor-badge">
+                <img src="https://visitor-badge.laobi.icu/badge?page_id=RizkyEvory.RizkyEvory" alt="Visitors">
+                <img src="https://img.shields.io/github/followers/RizkyEvory?style=social" alt="Followers">
+                <img src="https://komarev.com/ghpvc/?username=RizkyEvory&label=Profile%20Views&color=00ff41&style=flat" alt="Profile Views">
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">RIZKY.EVORY</div>
+        <p class="footer-text">Building tools for security researchers and profitable traders. 🚀</p>
+        <p class="footer-text">⭐ If you find my projects useful, consider giving them a star!</p>
+        <div class="footer-disclaimer">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>Disclaimer:</strong> All cybersecurity tools are for authorized testing and educational purposes only. 
+            Trading EAs involve financial risk—use at your own discretion.
+        </div>
+        <p class="footer-text" style="margin-top: 30px; color: var(--primary);">
+            &copy; 2025 M4DI~UciH4. All Rights Reserved.
+        </p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ============================================
+        // PRELOADER
+        // ============================================
+        const loadingTexts = [
+            'Initializing...',
+            'Loading modules...',
+            'Establishing connection...',
+            'Decrypting data...',
+            'Access Granted!'
+        ];
+        
+        let textIndex = 0;
+        const loadingTextEl = document.getElementById('loading-text');
+        
+        const textInterval = setInterval(() => {
+            textIndex++;
+            if (textIndex < loadingTexts.length) {
+                loadingTextEl.textContent = loadingTexts[textIndex];
+            }
+        }, 400);
+        
+        window.addEventListener('load', () => {
+            clearInterval(textInterval);
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // ============================================
+        // MATRIX RAIN BACKGROUND
+        // ============================================
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // ============================================
+        // CUSTOM CURSOR
+        // ============================================
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+            cursorDot.style.left = e.clientX - 2.5 + 'px';
+            cursorDot.style.top = e.clientY - 2.5 + 'px';
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform = 'scale(0.8)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'scale(1)';
+        });
+
+        // Hide custom cursor on mobile
+        if ('ontouchstart' in window) {
+            cursor.style.display = 'none';
+            cursorDot.style.display = 'none';
+        }
+
+        // ============================================
+        // TYPING EFFECT
+        // ============================================
+        const typingTexts = [
+            'Cyber Security Developer',
+            'Penetration Testing Expert',
+            'MQL5 EA Engineer',
+            'Bug Hunter',
+            'Security Researcher'
+        ];
+
+        let typingIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typing');
+
+        function typeEffect() {
+            const currentText = typingTexts[typingIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                typingIndex = (typingIndex + 1) % typingTexts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+
+        typeEffect();
+
+        // ============================================
+        // NAVIGATION TOGGLE
+        // ============================================
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close nav when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ============================================
+        // COUNTER ANIMATION
+        // ============================================
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target + '+';
+                }
+            });
+        };
+
+        // Intersection Observer for counter animation
+        const statsSection = document.querySelector('.stats');
+        let counterAnimated = false;
+
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !counterAnimated) {
+                    animateCounters();
+                    counterAnimated = true;
+                }
+            });
+        }, observerOptions);
+
+        statsObserver.observe(statsSection);
+
+        // ============================================
+        // SCROLL ANIMATIONS
+        // ============================================
+        const observeElements = document.querySelectorAll('.skill-badge, .project-card, .stat-card, .github-card');
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        observeElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            scrollObserver.observe(el);
+        });
+
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ============================================
+        // CONSOLE EASTER EGG
+        // ============================================
+        console.log('%c⚠️ SECURITY WARNING', 'color: #ff0040; font-size: 30px; font-weight: bold;');
+        console.log('%cThis is a browser feature intended for developers.', 'color: #fff; font-size: 14px;');
+        console.log('%cIf someone told you to copy-paste something here, it\'s a scam.', 'color: #fff; font-size: 14px;');
+        console.log('%c', 'padding: 50px;');
+        console.log('%c👋 Hey there, fellow developer!', 'color: #00ff41; font-size: 20px;');
+        console.log('%cWant to work together? Contact me at: t.me/rizkyevory', 'color: #00d4ff; font-size: 14px;');
+    </script>
+</body>
+</html>
