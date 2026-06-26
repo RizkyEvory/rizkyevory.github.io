@@ -300,7 +300,6 @@ https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/FIFA%20World%20Cup
 ##############################################################
 
 #EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co/svf19TWB/cupmadiuciha.gif" group-title="⚽ PIALA DUNIA 2026 | SIARAN AUTO RESO", PIALA DUNIA https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/FIFA%20World%20Cup%202026%20-%20Broadcast%20Opening%20Sequence.mp4
-#EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co.com/HTRRcZXs/20260529-035326.jpg" group-title="⚽ PIALA DUNIA 2026 | SIARAN AUTO RESO", M4DI~UciH4 TV https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/VID-20260203-WA0000.mp4
 #KODIPROP:inputstream=inputstream.ffmpegdirect
 #KODIPROP:mimetype=application/x-mpegURL
 #KODIPROP:inputstream.ffmpegdirect.is_realtime_stream=true
@@ -396,8 +395,6 @@ https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/FIFA%20World%20Cup
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxNrvC51vqJF-17uZVsW1fRVFjeGmFq3Fn--tLNGG0uA&s=10" group-title="⚽ PIALA DUNIA 2026 | SIARAN AUTO RESO",VTV10 #http://live.fptplay53.net/live/media/vtv10/live247-hls-avc/index.m3u8 â­
 #EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co/svf19TWB/cupmadiuciha.gif" group-title="⚽ PIALA DUNIA 2026 | SIARAN AUTO RESO", PIALA DUNIA
 https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/FIFA%20World%20Cup%202026%20-%20Broadcast%20Opening%20Sequence.mp4
-#EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co.com/HTRRcZXs/20260529-035326.jpg" group-title="⚽ PIALA DUNIA 2026 | SIARAN AUTO RESO", M4DI~UciH4 TV
-https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/VID-20260203-WA0000.mp4
 #EXTINF:-1 group-title="⚽ PIALA DUNIA 2026 | SIARAN AUTO RESO"tvg-id="" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxsoXoKYsS_leK30qY252Jsrt0HDnXMRpezWD8TRtZzA&s=10",RTB Go Live | TANPA JEDA IKLAN
 #EXTVLCOPT:http-referrer=https://www.rtbgo.bn/
 #EXTVLCOPT:http-user-agent=RTBGo/2.0.21 (Linux;Android 15.0.0;) ExoPlayerLib/2.19.1
@@ -488,8 +485,6 @@ https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8
 ## ⚽ PIALA DUNIA 2026 | SIARAN HD
 ##############################################################
 
-#EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co/svf19TWB/cupmadiuciha.gif" group-title="⚽ PIALA DUNIA 2026 | SIARAN HD", PIALA DUNIA https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/FIFA%20World%20Cup%202026%20-%20Broadcast%20Opening%20Sequence.mp4
-#EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co.com/HTRRcZXs/20260529-035326.jpg"group-title="⚽ PIALA DUNIA 2026 | SIARAN HD", M4DI~UciH4 TV https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/VID-20260203-WA0000.mp4
 #KODIPROP:inputstream=inputstream.ffmpegdirect
 #KODIPROP:mimetype=application/x-mpegURL
 #KODIPROP:inputstream.ffmpegdirect.is_realtime_stream=true
@@ -551,8 +546,6 @@ https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLSm75uUXEv7lK_uF9ud4R3M7i43j-j2mpLxXaZv_v4nF0cVRo1RB_MiY&s=10" group-title="⚽ PIALA DUNIA 2026 | SIARAN HD",TVRI SPORT DIGITAL (Kalo bisu pilih channel yg lain) http://103.148.44.38:8000/play/a05u/index.m3u8 â­
 #EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co/svf19TWB/cupmadiuciha.gif" group-title="⚽ PIALA DUNIA 2026 | SIARAN HD", PIALA DUNIA
 https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/FIFA%20World%20Cup%202026%20-%20Broadcast%20Opening%20Sequence.mp4
-#EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co.com/HTRRcZXs/20260529-035326.jpg"group-title="⚽ PIALA DUNIA 2026 | SIARAN HD", M4DI~UciH4 TV
-https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/VID-20260203-WA0000.mp4
 #EXTINF:-1 group-title="⚽ PIALA DUNIA 2026 | SIARAN HD"tvg-id="" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSjkXWDlDD-kyEnDSFjcl1_r_pZT_GN7UbrnY2lZV6jw&s=10",RTB Aneka | TANPA JEDA IKLAN
 #EXTVLCOPT:http-referrer=https://www.rtbgo.bn/
 #EXTVLCOPT:http-user-agent=RTBGo/2.0.21 (Linux;Android 15.0.0;) ExoPlayerLib/2.19.1
@@ -632,14 +625,11 @@ http://103.148.44.38:8000/play/a05u/index.m3u8
 ##############################################################
 
 #EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co/svf19TWB/cupmadiuciha.gif" group-title="📡 PIALA DUNIA 2026 | SIARAN 4K/UHD", PIALA DUNIA https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/FIFA%20World%20Cup%202026%20-%20Broadcast%20Opening%20Sequence.mp4
-#EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co.com/HTRRcZXs/20260529-035326.jpg"group-title="📡 PIALA DUNIA 2026 | SIARAN 4K/UHD", M4DI~UciH4 TV https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/VID-20260203-WA0000.mp4
 #EXTINF:-1 tvg-logo="" group-title="📡 PIALA DUNIA 2026 | SIARAN 4K/UHD" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUY6nPH10SFphf8ypK18xemwWgop7vQ0GkWd5hJEvCdA&s=10", 4k IRIB UHD https://live-aburayhan1103.telewebion.ir/ek/faratar/live/playlist.m3u8?isp=NA&city=NA
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6ATJoWp8_eiI_XOlh1TpoJzxzXCwlctNKSPpnjRNTug&s=10" group-title="📡 PIALA DUNIA 2026 | SIARAN 4K/UHD",FUSSBALL.TV 4K/UHD | Beberapa Device Ga Support - pilih channel yang lain http://line.ciao-ott.net/live/7VSUAK/S59UJY/1745180.ts
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6ATJoWp8_eiI_XOlh1TpoJzxzXCwlctNKSPpnjRNTug&s=10" group-title="📡 PIALA DUNIA 2026 | SIARAN 4K/UHD",HKNOW 4K/UHD | BERAT http://10k.lucastv.pro/live/2c99755ae255/gJnMAT2/465865.ts # --- Source 4 ---
 #EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co/svf19TWB/cupmadiuciha.gif" group-title="📡 PIALA DUNIA 2026 | SIARAN 4K/UHD", PIALA DUNIA
 https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/FIFA%20World%20Cup%202026%20-%20Broadcast%20Opening%20Sequence.mp4
-#EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co.com/HTRRcZXs/20260529-035326.jpg"group-title="📡 PIALA DUNIA 2026 | SIARAN 4K/UHD", M4DI~UciH4 TV
-https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/VID-20260203-WA0000.mp4
 #EXTINF:-1 tvg-logo="" group-title="📡 PIALA DUNIA 2026 | SIARAN 4K/UHD" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUY6nPH10SFphf8ypK18xemwWgop7vQ0GkWd5hJEvCdA&s=10", 4k IRIB UHD
 https://live-aburayhan1103.telewebion.ir/ek/faratar/live/playlist.m3u8?isp=NA&city=NA
 #EXTINF:-1 tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6ATJoWp8_eiI_XOlh1TpoJzxzXCwlctNKSPpnjRNTug&s=10" group-title="📡 PIALA DUNIA 2026 | SIARAN 4K/UHD",FUSSBALL.TV 4K/UHD | Beberapa Device Ga Support - pilih channel yang lain
