@@ -652,7 +652,6 @@ http://10k.lucastv.pro/live/2c99755ae255/gJnMAT2/465865.ts
 ## 📺 TV NASIONAL 🇮🇩
 ##############################################################
 
-#EXTINF:-1 tvg-id="" tvg-logo="https://i.ibb.co.com/pryR8QQC/20260203-062726.jpg" group-title="📺 TV NASIONAL 🇮🇩", * DONASI PAKE QRIS https://github.com/lusianaputri/Gcikar-TV/raw/refs/heads/main/VID-20260203-WA0000.mp4
 #EXTINF:0 tvg-id="MNCTV.id" tvg-logo="https://images.indihometv.com/images/channels/imageCir_MNC-180x180_2025_11_06_13_06_02.jpg" group-title="📺 TV NASIONAL 🇮🇩",MNCTV (R+)
 #EXTVLCOPT:http-user-agent=android-R+
 #EXTVLCOPT:http-referrer=https://www.rctiplus.com/ https://r-plus.sedotcw3.workers.dev/index.m3u8?id=mnctv
